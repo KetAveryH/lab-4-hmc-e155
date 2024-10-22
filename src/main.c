@@ -122,6 +122,114 @@ const int notes[][2] = {
 {440,	500},
 {  0,	0}};
 
+const int notes1[][2] = {
+    // First Phrase
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {659, 250},  // E5 (Longer)
+    {0,   50},   // Gap
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {659, 250},  // E5 (Longer)
+    {0,   50},   // Gap
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {784, 125},  // G5
+    {0,   50},   // Gap
+    {523, 125},  // C5
+    {0,   50},   // Gap
+    {587, 125},  // D5
+    {0,   50},   // Gap
+    {659, 500},  // E5 (Longer)
+    {0,   100},  // Gap
+
+    // Second Phrase
+    {698, 125},  // F5
+    {0,   50},   // Gap
+    {698, 125},  // F5
+    {0,   50},   // Gap
+    {698, 125},  // F5
+    {0,   50},   // Gap
+    {698, 125},  // F5
+    {0,   50},   // Gap
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {587, 125},  // D5
+    {0,   50},   // Gap
+    {587, 125},  // D5
+    {0,   50},   // Gap
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {587, 250},  // D5 (Longer)
+    {0,   50},   // Gap
+    {784, 250},  // G5 (Longer)
+    {0,   100},  // Gap
+
+    // Repeat First Phrase
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {659, 250},  // E5 (Longer)
+    {0,   50},   // Gap
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {659, 250},  // E5 (Longer)
+    {0,   50},   // Gap
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {784, 125},  // G5
+    {0,   50},   // Gap
+    {523, 125},  // C5
+    {0,   50},   // Gap
+    {587, 125},  // D5
+    {0,   50},   // Gap
+    {659, 500},  // E5 (Longer)
+    {0,   100},  // Gap
+
+    // Second Phrase Variation
+    {698, 125},  // F5
+    {0,   50},   // Gap
+    {698, 125},  // F5
+    {0,   50},   // Gap
+    {698, 125},  // F5
+    {0,   50},   // Gap
+    {698, 125},  // F5
+    {0,   50},   // Gap
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {659, 125},  // E5
+    {0,   50},   // Gap
+    {784, 125},  // G5
+    {0,   50},   // Gap
+    {784, 125},  // G5
+    {0,   50},   // Gap
+    {698, 125},  // F5
+    {0,   50},   // Gap
+    {587, 125},  // D5
+    {0,   50},   // Gap
+    {523, 750},  // C5 (Longer)
+    {0,   100},  // Gap
+
+    // End of song
+    {0, 0}       // End marker
+};
+
+
 
 // Define macros for constants
 #define LED_PIN           3
@@ -167,9 +275,9 @@ int main(void) {
 
     // Blink LED
 
-    for (int i=0; notes[i][0] != 0 || notes[i][1] != 0; i++) {
-        uint32_t freq = notes[i][0];   // Get frequency
-        uint32_t delay = notes[i][1];  // Get duration in milliseconds
+    for (int i=0; notes1[i][0] != 0 || notes1[i][1] != 0; i++) {
+        uint32_t freq = notes1[i][0];   // Get frequency
+        uint32_t delay = notes1[i][1];  // Get duration in milliseconds
         play_note(freq, delay);        // Play the note (assuming `play_note` is implemented)
         //ms_delay(delay);               // Delay for the duration of the note
     }
