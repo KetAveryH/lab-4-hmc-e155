@@ -6,7 +6,7 @@
 
 
 #include <stdint.h>
-#define __IO voltatile;
+#define __IO volatile;
 
 #define TIM6_BASE (0x40001000UL) // base address of TIM6
 #define TIM2_BASE (0x40000000UL) // base address of TIM2
@@ -18,8 +18,8 @@ typedef struct
   __IO uint32_t CR2;     /*!< TIM6/TIM7 control register 2,                                            Address offset: 0x04 */
   uint32_t RESERVED0;         /*!< Reserved,                                                                Address offset: 0x08 */
   __IO uint32_t DIER;    /*!< TIM6/TIM7 DMA/Interrupt enable register,                                 Address offset: 0x0C */
-  __IO uint32_t SR       /*!< TIM6/TIM7 status register,                                               Address offset: 0x10 */
-  __IO uint32_t EGR      /*!< TIM6/TIM7 event generation register,                                     Address offset: 0x14 */
+  __IO uint32_t SR;       /*!< TIM6/TIM7 status register,                                               Address offset: 0x10 */
+  __IO uint32_t EGR;      /*!< TIM6/TIM7 event generation register,                                     Address offset: 0x14 */
   uint32_t RESERVED1;        /*!< Reserved,                                                                Address offset: 0x18 */
   uint32_t RESERVED2;        /*!< Reserved,                                                                Address offset: 0x1C */
   uint32_t RESERVED3;        /*!< Reserved,                                                                Address offset: 0x20 */
@@ -64,11 +64,12 @@ uint32_t RESERVED4;       /*!< Reserved,                                        
 
 
 
-void initTIM2(TIM2_TypeDef * TIM2);
-void initTIM6(TIM6_TypeDef * TIM6);
-void play_frequency(TIM2_TypeDef * TIM2, uint32_t frequency);
-void delay_millis(TIM6_TypeDef * TIM6, uint32_t ms);
+void initTIM2(uint32_t freq);
+void initTIM6();
+void play_frequency(uint32_t freq);
+void delay_millis(uint32_t ms);
+void ms_delay(int ms);
 
-void play_note(uint32_t frequency, uint32_t ms);
+void play_note(uint32_t freq, uint32_t ms);
 
 #endif
