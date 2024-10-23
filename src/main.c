@@ -275,9 +275,9 @@ int main(void) {
 
     // Blink LED
 
-    for (int i=0; notes1[i][0] != 0 || notes1[i][1] != 0; i++) {
-        uint32_t freq = notes1[i][0];   // Get frequency
-        uint32_t delay = notes1[i][1];  // Get duration in milliseconds
+    for (int i=0; notes[i][0] != 0 || notes[i][1] != 0; i++) {
+        uint32_t freq = notes[i][0];   // Get frequency
+        uint32_t delay = notes[i][1];  // Get duration in milliseconds
         play_note(freq, delay);        // Play the note (assuming `play_note` is implemented)
         //ms_delay(delay);               // Delay for the duration of the note
     }
