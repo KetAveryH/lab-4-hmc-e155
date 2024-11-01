@@ -136,14 +136,24 @@ void initTIM2(uint32_t freq) {
     // This means we have 10,000 clock cycles per second.
     // To do this – TIM6_PSC[15:0] set to 0000001111100111  (which is 999)
     TIM2->PSC &= (~(0b1111111111111111));           // Clear bits 15:0
-    TIM2->PSC |= 0b0000001111100111;                // Set bits to intended prescaler
+    //TIM2->PSC |= 0b0000001111100111;                // Set bits to intended prescaler (999)
+    //TIM2->PSC |= 0b0010011100010000;
+    //TIM2->PSC |= 0b00000000011000011;                // Set bits to intended prescaler (99)
+    TIM2->PSC |= 0b00000000000000000;                // Set bits to intended prescaler (0)
+
 
     //-----------------------// TIMx auto-reload register | TIMx_ARR
     // Set Frequency
-    TIM2->ARR = (10000/(freq))-1;
+    // ARR = (SYSCLK/((PSC + 1) * (freq))-1
+    TIM2->ARR = (4000000/(freq))-1;
 
     // set duty
-    TIM2->CCR1 = ((10000/(freq))-1)/2;
+    TIM2->CCR1 = ((4000000/(freq))-1)/2;
+    
+    //TIM2->ARR = (10000/((0b0000001111100111+0b1)*(freq)))-1;
+
+    //// set duty
+    //TIM2->CCR1 = ((10000/((0b0000001111100111+0b1)*(freq)))-1)/2;
     
     //-----------------------// TIMx event generation register | TIMx_EGR
  
