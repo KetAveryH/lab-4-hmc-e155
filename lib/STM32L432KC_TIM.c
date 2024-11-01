@@ -28,8 +28,13 @@ void initTIM6() {
     // This means we have 10,000 clock cycles per second.
     // To do this – TIM6_PSC[15:0] set to 0000001111100111  (which is 999)
 
-    TIM6->PSC &= (~(0b1111111111111111));           // Clear bits 15:0
-    TIM6->PSC |= 0b0000001111100111;                // Set bits to intended prescaler
+    // We want the timer to raise the UIF flag 10 times per millisecond
+    // The Prescale value sets CK_INT = f_{CK_PSC} / (PSC[15:0]+1)
+    // We set PSC[15:0] = CK_PSC/10,000   
+    // This results in CK_INT = CK_PSC * 10,000 / CK_PSC = 10,000 Hz = 10Khz (10 clock cycles per ms)
+
+    TIM6->PSC &= (~(0b1111111111111111));             // Clear bits 15:0
+    TIM6->PSC |=    0b0010011100001111;               // Set bits to intended prescaler
                          
     // Set the top of the counter value – TIM6_ARR[15:0] set to 0000000000001010
     // Set the top of the counter value to 10, dividing the signal again, resulting in an overflow every 1ms
