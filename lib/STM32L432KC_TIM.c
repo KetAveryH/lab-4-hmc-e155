@@ -28,18 +28,18 @@ void initTIM6() {
     // This means we have 10,000 clock cycles per second.
     // To do this – TIM6_PSC[15:0] set to 0000001111100111  (which is 999)
 
-    // We want the timer to raise the UIF flag 10 times per millisecond
+    // We want the timer to raise the UIF flag 1 times per millisecond
     // The Prescale value sets CK_INT = f_{CK_PSC} / (PSC[15:0]+1)
-    // We set PSC[15:0] = CK_PSC/10,000   
-    // This results in CK_INT = CK_PSC * 10,000 / CK_PSC = 10,000 Hz = 10Khz (10 clock cycles per ms)
+    // We set PSC[15:0] = CK_PSC/1,000   
+    // This results in CK_INT = CK_PSC * 1,000 / CK_PSC = 1,000 Hz = 1Khz (1 clock cycles per ms)
 
     TIM6->PSC &= (~(0b1111111111111111));             // Clear bits 15:0
-    TIM6->PSC |=    0b0010011100001111;               // Set bits to intended prescaler
+    TIM6->PSC |=    0b0000111110100000;               // Set bits to intended prescaler
                          
     // Set the top of the counter value – TIM6_ARR[15:0] set to 0000000000001010
     // Set the top of the counter value to 10, dividing the signal again, resulting in an overflow every 1ms
     TIM6->ARR &= (~(0b1111111111111111));           // Clear bits 15:0
-    TIM6->ARR |= 0b0000000000001010;                // Set bits to intended counter top
+    TIM6->ARR |= 0b0000000000000001;                // Set bits to intended counter top
 
     // Make sure Counter is at zero – TIM6_CNT[15:0], clear bits
     TIM6->CNT &= (~(0b1111111111111111));   // Clear bits 15:0
@@ -59,8 +59,9 @@ void delayMillis(uint32_t ms) {
     initTIM6();                         // Initialize Timer 6 to fun in 1ms loops
     TIM6->SR &= (~(0b1));                   // Ensure flag is down
     for(int i = 0; i<ms; i++) {
-        while (~(TIM6->SR & 0b1)) {}        // While the flag is down, wait
+        while ((TIM6->SR != 0b1)) {}        // While the flag is down, wait
         TIM6->SR &= (~(0b1));               // After flag is up, reset it down
+        i++;
         }
 }
 
@@ -187,8 +188,8 @@ void play_note(uint32_t freq, uint32_t milliseconds)
 {
     //if f(~freq)
     initTIM2(freq);                 // turn on PWM at given frequency "freq"
-    //delayMillis(milliseconds);      // leave the note on for time "milliseconds"
-    ms_delay(milliseconds);
+    delayMillis(milliseconds);      // leave the note on for time "milliseconds"
+    //ms_delay(milliseconds);
     initTIM2(0);
     // turn on PWM
     // delay
